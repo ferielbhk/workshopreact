@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 export default function Products(props) {
     
@@ -28,6 +29,10 @@ export default function Products(props) {
     const decrement = () => {
         setCount(count-1)
     }
+    const navigate = useNavigate();
+     const VersEventsPage = () =>{
+        navigate('/events')
+    }
     
 
     console.log(count)
@@ -39,6 +44,7 @@ export default function Products(props) {
             <button onClick={increment}>Increment</button>
             <button onClick={decrement}>Decrement</button>
             {count}
+            <button onClick={VersEventsPage}>Navigate to Events Page</button>
         </>
     )
 }

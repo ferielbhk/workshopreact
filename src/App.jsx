@@ -1,13 +1,17 @@
-import { useState } from "react";
+import React, { Suspense, useState } from "react";
 import "./App.css";
-import Counter from "./components/Counter";
-import Header from './components/Header'
-import Products from "./components/Products";
-import Events from "./components/Events";
+import { Route, Routes } from "react-router-dom";
+import NotFound from "./components/NotFound";
+const Header = React.lazy(()=> import ('./components/Header')) ;
+const Products = React.lazy(()=> import ('./components/Products')) ;
+const Events = React.lazy(()=> import ('./components/Events'));
+const Counter = React.lazy(()=> import ('./components/Counter')) ;
+const EventDetails = React.lazy(()=> import ('./components/EventDetails')) ;
 
 function App() {
 
   const [show,setShow] = useState(true)
+  const [role , setRole]=useState("admin");
   let name = "Test";
   let person = {
     name: "Test",
@@ -57,11 +61,32 @@ function App() {
       <img /> 
       <button onClick={()=>test()} >Click Me</button>  */}
 
-      <Events />
-
-    
-    </>
-  );
+      {/*<Events />*/}
+      <Suspense fallback={<h1>Loading</h1>}>
+      <Header/>
+      <Routes>
+        {/*
+        {role !== 'admin' ? (
+          <Route path="/admin" element={<Dashbord/>}>
+            <Route path="users" element={<Users/>}/>
+          </Route>
+        ) : (*/}
+         {/* <> */}
+          {/*  */}
+        <Route path="/events">
+          <Route index element={<Events/>} />
+          <Route path="/events/:name/:description/:price/:image" element={<EventDetails />} />
+          </Route>
+        <Route path="/products" element={<Products/>}/>
+        <Route path="/counter" element={<Counter/>}/>
+       {/*</>*/}
+        {/*) */}
+        <Route path="*" element={<NotFound/>}/>
+      </Routes>
+      </Suspense>
+     </>
+     );
+  
 }
 
 export default App;
