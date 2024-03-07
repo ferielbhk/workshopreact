@@ -14,7 +14,7 @@ function Event(props) {
         <Card>
             <Card.Img variant="top" src={src} height={250}/>
             <Card.Body>
-                <Card.Title>{event.title}</Card.Title>
+                <Card.Title>{event.name}</Card.Title>
                 <Card.Text>
                     Price : {event.price}
                 </Card.Text>

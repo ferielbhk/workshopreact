@@ -2,12 +2,15 @@ import React, { Suspense, useState } from "react";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import NotFound from "./components/NotFound";
+import FormEvent from "./components/FormEvent";
+import CounterRedux from "./components/CounterRedux";
+import UpdateEvent from "./components/UpdateEvent";
 const Header = React.lazy(()=> import ('./components/Header')) ;
 const Products = React.lazy(()=> import ('./components/Products')) ;
 const Events = React.lazy(()=> import ('./components/Events'));
 const Counter = React.lazy(()=> import ('./components/Counter')) ;
 const EventDetails = React.lazy(()=> import ('./components/EventDetails')) ;
-
+//const FormEvent = React.lazy(()=>import('./components/FormEvent'));
 function App() {
 
   const [show,setShow] = useState(true)
@@ -65,6 +68,12 @@ function App() {
       <Suspense fallback={<h1>Loading</h1>}>
       <Header/>
       <Routes>
+      /* routes=routeroutlet d angular
+        route yekhou deux props : path et element 
+        route imbriquée avec un template partagé : route parent thzny l autre composant wfwst composant nlka des autres routes : balise outlet
+        hook : useparams pr recuperer params de route donne objet 
+        hook : usenavigate : retourne une fct dont parametre est le path desiré
+        navlink : pr savoir l etat de mon lien  */
         {/*
         {role !== 'admin' ? (
           <Route path="/admin" element={<Dashbord/>}>
@@ -76,9 +85,14 @@ function App() {
         <Route path="/events">
           <Route index element={<Events/>} />
           <Route path="/events/:name/:description/:price/:image" element={<EventDetails />} />
+          <Route path="add" element={<FormEvent/>}/>
+          <Route path=":eventId/update" element={<UpdateEvent/>} />
+
           </Route>
         <Route path="/products" element={<Products/>}/>
         <Route path="/counter" element={<Counter/>}/>
+        <Route path="/reduxcounter" element={<CounterRedux/>}/>
+        
        {/*</>*/}
         {/*) */}
         <Route path="*" element={<NotFound/>}/>
